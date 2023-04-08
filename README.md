@@ -1,4 +1,4 @@
-# CoreUI Panel php
+# CoreUI Panel
 
 ### Composer install
 
@@ -44,8 +44,8 @@ Output
     "backUrl": "index.html#back-addr",
     "controls": "<button class=\"btn btn-sm btn-secondary\">Help</button>",
     "tabs": [
-        {"id": "tab1", "title": "Home", "active": true, "url": "data/tab1.json"},
-        {"id": "tab2", "title": "Profile", "active": false, "url": "data/tab2.json"},
+        {"id": "tab1", "title": "Home", "active": false, "url": "data/tab1.json"},
+        {"id": "tab2", "title": "Profile", "active": true, "url": "data/tab2.json"},
         {"id": "tab3", "title": "Disabled", "disabled": true},
         {
             "title": "Dropdown",
