@@ -1,5 +1,10 @@
-# coreui-panel-php
-CoreUI Panel php
+# CoreUI Panel php
+
+### Composer install
+
+`composer install shabuninil/coreui-panel-php`
+
+### Example usage
 
 ```php
     $panel = new \CoreUI\Panel('panel-id');
