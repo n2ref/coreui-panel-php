@@ -7,7 +7,7 @@
     "coreui"
   ],
   "homepage": "https://github.com/shabuninil/coreui-panel-php",
-  "license": "GNU3",
+  "license": "MIT",
   "authors": [
     {
       "name": "Igor Shabunin",
