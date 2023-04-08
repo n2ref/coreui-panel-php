@@ -38,6 +38,7 @@
 Output 
 ```json
 {
+    "component": "coreui.panel",
     "id": "panel-id",
     "title": "Component Panel",
     "subtitle": "CoreUI Framework",
