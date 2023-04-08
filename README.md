@@ -43,6 +43,10 @@ Output
     "title": "Component Panel",
     "subtitle": "CoreUI Framework",
     "backUrl": "index.html#back-addr",
+    "tabsType": "tabs",
+    "tabsPosition": "top-left",
+    "tabsFill": "justify",
+    "tabsWidth": 200,
     "controls": "<button class=\"btn btn-sm btn-secondary\">Help</button>",
     "tabs": [
         {"id": "tab1", "title": "Home", "active": false, "url": "data/tab1.json"},
