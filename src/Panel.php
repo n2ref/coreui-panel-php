@@ -222,7 +222,7 @@ class Panel {
             'id'           => $this->id,
             'title'        => $this->title,
             'subtitle'     => $this->subtitle,
-            'back_url'     => $this->back_url,
+            'backUrl'      => $this->back_url,
             'controls'     => $this->controls,
             'tabsType'     => $this->tabs_type,
             'tabsPosition' => $this->tabs_position,
