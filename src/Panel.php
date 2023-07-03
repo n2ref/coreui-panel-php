@@ -29,17 +29,17 @@ class Panel {
     const TABS_FILL         = 'fill';
     const TABS_FILL_JUSTIFY = 'justify';
 
-    private $id           = '';
-    private $title        = '';
-    private $subtitle     = '';
-    private $back_url     = '';
-    private $controls     = '';
+    private $id            = '';
+    private $title         = '';
+    private $subtitle      = '';
+    private $back_url      = '';
+    private $controls      = '';
     private $tabs_type     = self::TABS_TYPE_TABS;
     private $tabs_position = self::TABS_POS_TOP_LEFT;
     private $tabs_fill     = self::TABS_FILL_NONE;
-    private $tabs_width = 200;
-    private $tabs       = [];
-    private $content      = '';
+    private $tabs_width    = 200;
+    private $tabs          = [];
+    private $content       = '';
 
 
     /**
