@@ -2,7 +2,7 @@
 
 ### Composer install
 
-`composer install shabuninil/coreui-panel-php`
+`composer install n2ref/coreui-panel-php`
 
 ### Example usage
 

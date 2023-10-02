@@ -1,12 +1,12 @@
 {
-  "name": "shabuninil/coreui-panel-php",
+  "name": "n2ref/coreui-panel-php",
   "type": "framework",
   "description": "PHP framework for web applications",
   "keywords": [
     "framework",
     "coreui"
   ],
-  "homepage": "https://github.com/shabuninil/coreui-panel-php",
+  "homepage": "https://github.com/n2ref/coreui-panel-php",
   "license": "MIT",
   "authors": [
     {
