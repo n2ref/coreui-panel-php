@@ -10,8 +10,7 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Igor Shabunin",
-      "email": "shabuninil24@gmail.com",
+      "name": "n2ref",
       "role": "Developer"
     }
   ],
@@ -22,7 +21,7 @@
   },
   "autoload": {
     "psr-4": {
-      "CoreUI\\": "src/"
+      "CoreUI\\Panel": "src/"
     }
   }
 }
