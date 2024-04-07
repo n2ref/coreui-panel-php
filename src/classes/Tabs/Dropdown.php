@@ -1,6 +1,5 @@
 <?php
-namespace CoreUI\classes;
-use CoreUI\classes\Dropdown\Item;
+namespace CoreUI\Panel\classes\Tabs;
 
 require_once 'Dropdown/Item.php';
 
@@ -63,7 +62,7 @@ class Dropdown {
      * @param bool $is_disabled
      * @return $this
      */
-    public function disabled(bool $is_disabled): self {
+    public function setDisabled(bool $is_disabled): self {
 
         $this->disabled = $is_disabled;
         return $this;
@@ -74,7 +73,7 @@ class Dropdown {
      * @param bool $is_active
      * @return self
      */
-    public function active(bool $is_active): self {
+    public function setActive(bool $is_active): self {
 
         $this->active = $is_active;
         return $this;
@@ -85,17 +84,12 @@ class Dropdown {
      * Добавление значения в список
      * @param string      $title
      * @param string|null $id
-     * @param string|null $url
-     * @return Item
+     * @return Dropdown\Item
      */
-    public function addItem(string $title, string $id = null, string $url = null): Item {
+    public function addItem(string $title, string $id = null): Dropdown\Item {
 
-        $item = new Item($id);
+        $item = new Dropdown\Item($id);
         $item->setTitle($title);
-
-        if ($url) {
-            $item->setUrl($url);
-        }
 
         $this->items[] = $item;
 

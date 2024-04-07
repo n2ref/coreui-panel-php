@@ -1,11 +1,20 @@
 <?php
 namespace CoreUI;
-use CoreUI\classes\Dropdown;
-use CoreUI\classes\Tab;
+use CoreUI\Panel\classes\Components\Button;
+use CoreUI\Panel\classes\Components\Link;
+use CoreUI\Panel\classes\Components\Custom;
+use CoreUI\Panel\classes\Components\Dropdown;
+use CoreUI\Panel\classes\Components\ButtonGroup;
+use CoreUI\Panel\classes\Tabs;
 
 
-require_once 'classes/Dropdown.php';
-require_once 'classes/Tab.php';
+require_once 'classes/Components/Button.php';
+require_once 'classes/Components/Link.php';
+require_once 'classes/Components/Custom.php';
+require_once 'classes/Components/Dropdown.php';
+require_once 'classes/Components/ButtonGroup.php';
+require_once 'classes/Tabs/Dropdown.php';
+require_once 'classes/Tabs/Tab.php';
 
 
 /**
@@ -17,29 +26,28 @@ class Panel {
     const TABS_TYPE_PILLS     = 'pills';
     const TABS_TYPE_UNDERLINE = 'underline';
 
-    const TABS_POS_TOP_LEFT       = 'top-left';
-    const TABS_POS_TOP_CENTER     = 'top-center';
-    const TABS_POS_TOP_RIGHT      = 'top-right';
-    const TABS_POS_LEFT           = 'left';
-    const TABS_POS_LEFT_SIDEWAYS  = 'left-sideways';
-    const TABS_POS_RIGHT          = 'right';
-    const TABS_POS_RIGHT_SIDEWAYS = 'right-sideways';
+    const TABS_POS_TOP_LEFT   = 'top-left';
+    const TABS_POS_TOP_CENTER = 'top-center';
+    const TABS_POS_TOP_RIGHT  = 'top-right';
+    const TABS_POS_LEFT       = 'left';
+    const TABS_POS_RIGHT      = 'right';
 
     const TABS_FILL_NONE    = '';
     const TABS_FILL         = 'fill';
     const TABS_FILL_JUSTIFY = 'justify';
 
-    private $id           = '';
-    private $title        = '';
-    private $subtitle     = '';
-    private $back_url     = '';
-    private $controls     = '';
+    private $id            = '';
+    private $title         = '';
+    private $subtitle      = '';
     private $tabs_type     = self::TABS_TYPE_TABS;
     private $tabs_position = self::TABS_POS_TOP_LEFT;
     private $tabs_fill     = self::TABS_FILL_NONE;
-    private $tabs_width = 200;
-    private $tabs       = [];
-    private $content      = '';
+    private $tabs_width    = 200;
+    private $controls      = [];
+    private $tabs          = [];
+    private $content       = [];
+    private $tab_index     = 1;
+    private $control_index = 1;
 
 
     /**
@@ -59,22 +67,118 @@ class Panel {
      * Установка заголовка
      * @param string      $title
      * @param string|null $subtitle
-     * @param string|null $back_url
      */
-    public function setTitle(string $title, string $subtitle = null, string $back_url = null): void {
+    public function setTitle(string $title, string $subtitle = null): void {
         $this->title    = $title;
         $this->subtitle = $subtitle;
-        $this->back_url = $back_url;
     }
 
 
     /**
-     * Установка своих елементов управления
-     * @param string $controls_content
+     * Добавления кнопки
+     * @param string      $content
+     * @param string|null $id
+     * @return Button
      */
-    public function setControls(string $controls_content): void {
+    public function addControlButton(string $content, string $id = null): Button {
 
-        $this->controls = $controls_content;
+        if (empty($id)) {
+            $id = "control{$this->control_index}";
+        }
+
+        $control = new Button($id);
+        $control->setContent($content);
+
+        $this->controls[] = $control;
+        $this->control_index++;
+
+        return $control;
+    }
+
+
+    /**
+     * Добавления кнопки
+     * @param string      $content
+     * @param string|null $id
+     * @return Link
+     */
+    public function addControlLink(string $content, string $id = null): Link {
+
+        if (empty($id)) {
+            $id = "control{$this->control_index}";
+        }
+
+        $control = new Link($id);
+        $control->setContent($content);
+
+        $this->controls[] = $control;
+        $this->control_index++;
+
+        return $control;
+    }
+
+
+    /**
+     * Добавления кнопки
+     * @param string      $content
+     * @param string|null $id
+     * @return Custom
+     */
+    public function addControlCustom(string $content, string $id = null): Custom {
+
+        if (empty($id)) {
+            $id = "control{$this->control_index}";
+        }
+
+        $control = new Custom($id);
+        $control->setContent($content);
+
+        $this->controls[] = $control;
+        $this->control_index++;
+
+        return $control;
+    }
+
+
+    /**
+     * Добавления кнопки
+     * @param string      $content
+     * @param string|null $id
+     * @return Dropdown
+     */
+    public function addControlDropdown(string $content, string $id = null): Dropdown {
+
+        if (empty($id)) {
+            $id = "control{$this->control_index}";
+        }
+
+        $control = new Dropdown($id);
+        $control->setContent($content);
+
+        $this->controls[] = $control;
+        $this->control_index++;
+
+        return $control;
+    }
+
+
+    /**
+     * Добавления кнопки
+     * @param string|null $id
+     * @return ButtonGroup
+     */
+    public function addControlButtonGroup(string $id = null): ButtonGroup {
+
+        if (empty($id)) {
+            $id = "control{$this->control_index}";
+        }
+
+        $control = new ButtonGroup($id);
+
+        $this->controls[] = $control;
+        $this->control_index++;
+
+        return $control;
     }
 
 
@@ -122,11 +226,15 @@ class Panel {
      * @param string      $title
      * @param string|null $id
      * @param string|null $url
-     * @return Tab
+     * @return Tabs\Tab
      */
-    public function addTab(string $title, string $id = null, string $url = null): Tab {
+    public function addTab(string $title, string $id = null, string $url = null): Tabs\Tab {
 
-        $tab = new Tab($id);
+        if (empty($id)) {
+            $id = "tab{$this->tab_index}";
+        }
+
+        $tab = new Tabs\Tab($id);
         $tab->setTitle($title);
 
         if ($url) {
@@ -134,6 +242,7 @@ class Panel {
         }
 
         $this->tabs[] = $tab;
+        $this->tab_index++;
 
         return $tab;
     }
@@ -141,15 +250,21 @@ class Panel {
 
     /**
      * Добавление dropdown таба
-     * @param string $title
-     * @return Dropdown
+     * @param string      $title
+     * @param string|null $id
+     * @return Tabs\Dropdown
      */
-    public function addDropdown(string $title): Dropdown {
+    public function addTabDropdown(string $title, string $id = null): Tabs\Dropdown {
 
-        $dropdown = new Dropdown();
+        if (empty($id)) {
+            $id = "tab{$this->tab_index}";
+        }
+
+        $dropdown = new Tabs\Dropdown($id);
         $dropdown->setTitle($title);
 
         $this->tabs[] = $dropdown;
+        $this->tab_index++;
 
         return $dropdown;
     }
@@ -162,9 +277,7 @@ class Panel {
      */
     public function setContent(mixed $content): void {
 
-        if ( ! is_scalar($content) &&
-             ! is_array($content)
-        ) {
+        if ( ! is_scalar($content) && ! is_array($content)) {
             throw new \Exception('Содержимое может быть в виде строки или массива');
         }
 
@@ -180,25 +293,25 @@ class Panel {
 
         if ( ! empty($this->tabs)) {
             foreach ($this->tabs as $tab) {
-                if ($tab instanceof Dropdown) {
+                if ($tab instanceof Tabs\Dropdown) {
                     $items      = $tab->getItems();
                     $tab_active = false;
 
                     foreach ($items as $item) {
-                        if ($item instanceof Dropdown\Item) {
+                        if ($item instanceof Panel\classes\Tabs\Dropdown\Item) {
                             if ($item->getId() == $tab_id) {
-                                $item->active(true);
+                                $item->setActive(true);
                                 $tab_active = true;
                             } else {
-                                $item->active(false);
+                                $item->setActive(false);
                             }
                         }
                     }
 
-                    $tab->active($tab_active);
+                    $tab->setActive($tab_active);
 
-                } elseif ($tab instanceof Tab) {
-                    $tab->active($tab->getId() == $tab_id);
+                } elseif ($tab instanceof Tabs\Tab) {
+                    $tab->setActive($tab->getId() == $tab_id);
                 }
             }
         }
@@ -211,10 +324,14 @@ class Panel {
      */
     public function toArray(): array {
 
-        $tabs = [];
+        $tabs     = [];
+        $controls = [];
 
         foreach ($this->tabs as $tab) {
             $tabs[] = $tab->toArray();
+        }
+        foreach ($this->controls as $control) {
+            $controls[] = $control->toArray();
         }
 
         return [
@@ -222,14 +339,15 @@ class Panel {
             'id'           => $this->id,
             'title'        => $this->title,
             'subtitle'     => $this->subtitle,
-            'backUrl'      => $this->back_url,
-            'controls'     => $this->controls,
-            'tabsType'     => $this->tabs_type,
-            'tabsPosition' => $this->tabs_position,
-            'tabsFill'     => $this->tabs_fill,
-            'tabsWidth'    => $this->tabs_width,
-            'tabs'         => $tabs,
-            'content'      => $this->content,
+            'controls'     => $controls,
+            'tabs'         => [
+                'type'     => $this->tabs_type,
+                'position' => $this->tabs_position,
+                'fill'     => $this->tabs_fill,
+                'width'    => $this->tabs_width,
+                'items'    => $tabs,
+            ],
+            'content' => $this->content,
         ];
     }
 } 
