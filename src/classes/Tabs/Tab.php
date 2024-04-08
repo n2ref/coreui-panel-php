@@ -22,8 +22,8 @@ class Tab {
     private $url_count  = '';
     private $url_badge  = '';
     private $url_window = '';
-    private $count      = null;
-    private $badge      = null;
+    private $count      = '';
+    private $badge      = [];
     private $disabled   = false;
     private $active     = false;
 

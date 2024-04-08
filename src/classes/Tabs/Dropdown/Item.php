@@ -11,7 +11,7 @@ class Item {
     private $url        = '';
     private $url_count  = '';
     private $url_window = '';
-    private $count      = null;
+    private $count      = '';
     private $disabled   = false;
     private $active     = false;
 
