@@ -1,5 +1,5 @@
 <?php
-namespace CoreUI\Panel\classes\Components;
+namespace CoreUI\Panel\Components;
 
 
 /**

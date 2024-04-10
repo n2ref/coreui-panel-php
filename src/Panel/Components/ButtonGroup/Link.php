@@ -1,14 +1,14 @@
 <?php
-namespace CoreUI\Panel\classes\Components;
-
+namespace CoreUI\Panel\Components\ButtonGroup;
 
 /**
  *
  */
-class Custom {
+class Link {
 
     private $id      = '';
     private $content = '';
+    private $link    = '';
 
 
     /**
@@ -27,10 +27,12 @@ class Custom {
     /**
      * Установка ID контрола
      * @param string $id
-     * @return void
+     * @return self
      */
-    public function setId(string $id): void {
+    public function setId(string $id): self {
         $this->id = $id;
+
+        return $this;
     }
 
 
@@ -66,14 +68,37 @@ class Custom {
 
 
     /**
+     * Установка ссылки
+     * @param string $link
+     * @return self
+     */
+    public function setLink(string $link): self {
+
+        $this->link = $link;
+
+        return $this;
+    }
+
+
+    /**
+     * Получение ссылки
+     * @return string
+     */
+    public function getLink(): string {
+        return $this->link;
+    }
+
+
+    /**
      * @return array
      */
     public function toArray(): array {
 
         return [
             'id'      => $this->getId(),
-            'type'    => 'custom',
+            'type'    => 'link',
             'content' => $this->getContent(),
+            'link'    => $this->getLink(),
         ];
     }
 }

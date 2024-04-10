@@ -1,5 +1,5 @@
 <?php
-namespace CoreUI\Panel\classes\Components\ButtonGroup\Dropdown;
+namespace CoreUI\Panel\Components\ButtonGroup\Dropdown;
 
 
 /**
@@ -100,7 +100,7 @@ class Button {
             'id'      => $this->getId(),
             'type'    => 'button',
             'content' => $this->getContent(),
-            'onclick' => $this->getOnClick(),
+            'onClick' => $this->getOnClick(),
         ];
     }
 }

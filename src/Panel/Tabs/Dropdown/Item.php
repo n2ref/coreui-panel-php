@@ -1,5 +1,5 @@
 <?php
-namespace CoreUI\Panel\classes\Tabs\Dropdown;
+namespace CoreUI\Panel\Tabs\Dropdown;
 
 /**
  *

@@ -1,5 +1,5 @@
 <?php
-namespace CoreUI\Panel\classes\Components\ButtonGroup\Dropdown;
+namespace CoreUI\Panel\Components\Dropdown;
 
 
 /**
@@ -28,10 +28,12 @@ class Link {
     /**
      * Установка ID контрола
      * @param string $id
-     * @return void
+     * @return self
      */
-    public function setId(string $id): void {
+    public function setId(string $id): self {
         $this->id = $id;
+
+        return $this;
     }
 
 

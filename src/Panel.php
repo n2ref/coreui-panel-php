@@ -1,20 +1,20 @@
 <?php
 namespace CoreUI;
-use CoreUI\Panel\classes\Components\Button;
-use CoreUI\Panel\classes\Components\Link;
-use CoreUI\Panel\classes\Components\Custom;
-use CoreUI\Panel\classes\Components\Dropdown;
-use CoreUI\Panel\classes\Components\ButtonGroup;
-use CoreUI\Panel\classes\Tabs;
+use CoreUI\Panel\Components\Button;
+use CoreUI\Panel\Components\Link;
+use CoreUI\Panel\Components\Custom;
+use CoreUI\Panel\Components\Dropdown;
+use CoreUI\Panel\Components\ButtonGroup;
+use CoreUI\Panel\Tabs;
 
 
-require_once 'classes/Components/Button.php';
-require_once 'classes/Components/Link.php';
-require_once 'classes/Components/Custom.php';
-require_once 'classes/Components/Dropdown.php';
-require_once 'classes/Components/ButtonGroup.php';
-require_once 'classes/Tabs/Dropdown.php';
-require_once 'classes/Tabs/Tab.php';
+require_once 'Panel/Components/Button.php';
+require_once 'Panel/Components/Link.php';
+require_once 'Panel/Components/Custom.php';
+require_once 'Panel/Components/Dropdown.php';
+require_once 'Panel/Components/ButtonGroup.php';
+require_once 'Panel/Tabs/Dropdown.php';
+require_once 'Panel/Tabs/Tab.php';
 
 
 /**
@@ -298,7 +298,7 @@ class Panel {
                     $tab_active = false;
 
                     foreach ($items as $item) {
-                        if ($item instanceof Panel\classes\Tabs\Dropdown\Item) {
+                        if ($item instanceof Panel\Tabs\Dropdown\Item) {
                             if ($item->getId() == $tab_id) {
                                 $item->setActive(true);
                                 $tab_active = true;

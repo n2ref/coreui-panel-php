@@ -1,5 +1,5 @@
 <?php
-namespace CoreUI\Panel\classes\Tabs;
+namespace CoreUI\Panel\Tabs;
 
 
 /**

@@ -1,9 +1,9 @@
 <?php
-namespace CoreUI\Panel\classes\Components;
+namespace CoreUI\Panel\Components;
 
 
-use CoreUI\Panel\classes\Components\Dropdown\Button;
-use CoreUI\Panel\classes\Components\Dropdown\Link;
+use CoreUI\Panel\Components\Dropdown\Button;
+use CoreUI\Panel\Components\Dropdown\Link;
 
 /**
  *

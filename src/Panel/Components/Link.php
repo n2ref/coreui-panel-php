@@ -1,17 +1,17 @@
 <?php
-namespace CoreUI\Panel\classes\Components\ButtonGroup;
+namespace CoreUI\Panel\Components;
+
 
 /**
  *
  */
-class Button {
+class Link {
 
     private $id       = '';
+    private $href     = '';
     private $content  = '';
     private $onclick  = '';
-    private $attr     = [
-        'class' => "btn btn-secondary"
-    ];
+    private $attr     = [];
 
 
     /**
@@ -50,6 +50,28 @@ class Button {
 
 
     /**
+     * Установка url адреса
+     * @param string $href
+     * @return self
+     */
+    public function setHref(string $href): self {
+
+        $this->href = $href;
+
+        return $this;
+    }
+
+
+    /**
+     * Получение url адреса
+     * @return string
+     */
+    public function getHref(): string {
+        return $this->href;
+    }
+
+
+    /**
      * Установка js функции выполняющейся при клике
      * @param string $onclick
      * @return self
@@ -74,12 +96,10 @@ class Button {
     /**
      * Установка ID контрола
      * @param string $id
-     * @return self
+     * @return void
      */
-    public function setId(string $id): self {
+    public function setId(string $id): void {
         $this->id = $id;
-
-        return $this;
     }
 
 
@@ -96,30 +116,26 @@ class Button {
      * Установка атрибута
      * @param string $name
      * @param string $value
-     * @return self
+     * @return void
      */
-    public function setAttr(string $name, string $value): self {
+    public function setAttr(string $name, string $value): void {
 
         if (is_scalar($value)) {
             $this->attr[$name] = $value;
         }
-
-        return $this;
     }
 
 
     /**
      * Установка атрибутов
      * @param array $attr
-     * @return self
+     * @return void
      */
-    public function setAttributes(array $attr): self {
+    public function setAttributes(array $attr): void {
 
         foreach ($attr as $name => $value) {
             $this->setAttr($name, $value);
         }
-
-        return $this;
     }
 
 
@@ -141,7 +157,8 @@ class Button {
             'id'      => $this->getId(),
             'type'    => 'button',
             'content' => $this->getContent(),
-            'onclick' => $this->getOnClick(),
+            'href'    => $this->getHref(),
+            'onClick' => $this->getOnClick(),
             'attr'    => $this->attr,
         ];
     }

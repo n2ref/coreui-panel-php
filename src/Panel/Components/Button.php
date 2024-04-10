@@ -1,5 +1,5 @@
 <?php
-namespace CoreUI\Panel\classes\Components;
+namespace CoreUI\Panel\Components;
 
 
 /**
@@ -142,7 +142,7 @@ class Button {
             'id'      => $this->getId(),
             'type'    => 'button',
             'content' => $this->getContent(),
-            'onclick' => $this->getOnClick(),
+            'onClick' => $this->getOnClick(),
             'attr'    => $this->attr,
         ];
     }
