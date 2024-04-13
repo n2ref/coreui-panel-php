@@ -8,10 +8,10 @@ class Item {
 
     private $id         = '';
     private $title      = '';
-    private $url        = '';
-    private $url_count  = '';
-    private $url_window = '';
-    private $count      = '';
+    private $url        = null;
+    private $url_count  = null;
+    private $url_window = null;
+    private $count      = null;
     private $disabled   = false;
     private $active     = false;
 
@@ -26,6 +26,25 @@ class Item {
         } else {
             $this->id = crc32(uniqid());
         }
+    }
+
+
+    /**
+     * Установка ID таба
+     * @param string $id
+     * @return void
+     */
+    public function setId(string $id): void {
+        $this->id = $id;
+    }
+
+
+    /**
+     * Получение ID таба
+     * @return string
+     */
+    public function getId(): string {
+        return $this->id;
     }
 
 
@@ -51,10 +70,10 @@ class Item {
 
     /**
      * Установка количества для таба
-     * @param string $count
+     * @param string|null $count
      * @return self
      */
-    public function setCount(string $count): self {
+    public function setCount(string $count = null): self {
 
         $this->count = $count;
 
@@ -64,19 +83,20 @@ class Item {
 
     /**
      * Получение количества для таба
-     * @return string
+     * @return string|null
      */
-    public function getCount(): string {
+    public function getCount():? string {
 
         return $this->count;
     }
 
 
     /**
-     * @param string $url
+     * Установка url таба
+     * @param string|null $url
      * @return self
      */
-    public function setUrl(string $url): self {
+    public function setUrl(string $url = null): self {
 
         $this->url = $url;
         return $this;
@@ -85,19 +105,19 @@ class Item {
 
     /**
      * Получение url таба
-     * @return string
+     * @return string|null
      */
-    public function getUrl(): string {
+    public function getUrl():? string {
         return $this->url;
     }
 
 
     /**
      * Установка url количества таба
-     * @param string $url_count
+     * @param string|null $url_count
      * @return self
      */
-    public function setUrlCount(string $url_count): self {
+    public function setUrlCount(string $url_count = null): self {
 
         $this->url_count = $url_count;
 
@@ -107,9 +127,9 @@ class Item {
 
     /**
      * Получение url количества таба
-     * @return string
+     * @return string|null
      */
-    public function getUrlCount(): string {
+    public function getUrlCount():? string {
 
         return $this->url_count;
     }
@@ -117,10 +137,10 @@ class Item {
 
     /**
      * Установка url для окна браузера
-     * @param string $url_window
+     * @param string|null $url_window
      * @return self
      */
-    public function setUrlWindow(string $url_window): self {
+    public function setUrlWindow(string $url_window = null): self {
 
         $this->url_window = $url_window;
 
@@ -130,30 +150,11 @@ class Item {
 
     /**
      * Получение url для окна браузера
-     * @return string
+     * @return string|null
      */
-    public function getUrlWindow(): string {
+    public function getUrlWindow():? string {
 
         return $this->url_window;
-    }
-
-
-    /**
-     * Установка ID таба
-     * @param string $id
-     * @return void
-     */
-    public function setId(string $id): void {
-        $this->id = $id;
-    }
-
-
-    /**
-     * Получение ID таба
-     * @return string
-     */
-    public function getId(): string {
-        return $this->id;
     }
 
 
@@ -184,16 +185,27 @@ class Item {
      */
     public function toArray(): array {
 
-        return [
-            'id'        => $this->getId(),
-            'type'      => 'tab',
-            'title'     => $this->getTitle(),
-            'url'       => $this->getUrl(),
-            'count'     => $this->getCount(),
-            'urlCount'  => $this->getUrlCount(),
-            'urlWindow' => $this->getUrlWindow(),
-            'disabled'  => $this->disabled,
-            'active'    => $this->active,
+        $result = [
+            'id'       => $this->getId(),
+            'type'     => 'tab',
+            'title'    => $this->getTitle(),
+            'disabled' => $this->disabled,
+            'active'   => $this->active,
         ];
+
+        if ( ! is_null($url = $this->getUrl())) {
+            $result['url'] = $url;
+        }
+        if ( ! is_null($count = $this->getCount())) {
+            $result['count'] = $count;
+        }
+        if ( ! is_null($url_count = $this->getUrlCount())) {
+            $result['urlCount'] = $url_count;
+        }
+        if ( ! is_null($url_window = $this->getUrlWindow())) {
+            $result['urlWindow'] = $url_window;
+        }
+
+        return $result;
     }
 }

@@ -18,12 +18,12 @@ class Tab {
 
     private $id         = '';
     private $title      = '';
-    private $url        = '';
-    private $url_count  = '';
-    private $url_badge  = '';
-    private $url_window = '';
-    private $count      = '';
-    private $badge      = [];
+    private $url        = null;
+    private $url_count  = null;
+    private $url_badge  = null;
+    private $url_window = null;
+    private $count      = null;
+    private $badge      = null;
     private $disabled   = false;
     private $active     = false;
 
@@ -87,10 +87,10 @@ class Tab {
 
     /**
      * Установка количества для таба
-     * @param string $count
+     * @param string|null $count
      * @return self
      */
-    public function setCount(string $count): self {
+    public function setCount(string $count = null): self {
 
         $this->count = $count;
 
@@ -100,9 +100,9 @@ class Tab {
 
     /**
      * Получение количества для таба
-     * @return string
+     * @return string|null
      */
-    public function getCount(): string {
+    public function getCount():? string {
 
         return $this->count;
     }
@@ -110,18 +110,23 @@ class Tab {
 
     /**
      * Установка метки для таба
-     * @param string $text
-     * @param string $type
-     * @param array  $attr
+     * @param string|null $text
+     * @param string      $type
+     * @param array       $attr
      * @return self
      */
-    public function setBadge(string $text, string $type = self::BADGE_TYPE_DANGER, array $attr = []): self {
+    public function setBadge(string $text = null, string $type = self::BADGE_TYPE_DANGER, array $attr = []): self {
 
-        $this->badge = [
-            'text' => $text,
-            'type' => $type,
-            'attr' => $attr,
-        ];
+        if (is_null($text)) {
+            $this->badge = null;
+
+        } else {
+            $this->badge = [
+                'text' => $text,
+                'type' => $type,
+                'attr' => $attr,
+            ];
+        }
 
         return $this;
     }
@@ -139,10 +144,10 @@ class Tab {
 
     /**
      * Установка url таба
-     * @param string $url
+     * @param string|null $url
      * @return self
      */
-    public function setUrl(string $url): self {
+    public function setUrl(string $url = null): self {
 
         $this->url = $url;
 
@@ -152,9 +157,9 @@ class Tab {
 
     /**
      * Получение url таба
-     * @return string
+     * @return string|null
      */
-    public function getUrl(): string {
+    public function getUrl():? string {
 
         return $this->url;
     }
@@ -162,10 +167,10 @@ class Tab {
 
     /**
      * Установка url количества таба
-     * @param string $url_count
+     * @param string|null $url_count
      * @return self
      */
-    public function setUrlCount(string $url_count): self {
+    public function setUrlCount(string $url_count = null): self {
 
         $this->url_count = $url_count;
 
@@ -175,9 +180,9 @@ class Tab {
 
     /**
      * Получение url количества таба
-     * @return string
+     * @return string|null
      */
-    public function getUrlCount(): string {
+    public function getUrlCount():? string {
 
         return $this->url_count;
     }
@@ -185,10 +190,10 @@ class Tab {
 
     /**
      * Установка url метки таба
-     * @param string $url_badge
+     * @param string|null $url_badge
      * @return self
      */
-    public function setUrlBadge(string $url_badge): self {
+    public function setUrlBadge(string $url_badge = null): self {
 
         $this->url_badge = $url_badge;
 
@@ -198,9 +203,9 @@ class Tab {
 
     /**
      * Получение url метки таба
-     * @return string
+     * @return string|null
      */
-    public function getUrlBadge(): string {
+    public function getUrlBadge():? string {
 
         return $this->url_badge;
     }
@@ -208,10 +213,10 @@ class Tab {
 
     /**
      * Установка url для окна браузера
-     * @param string $url_window
+     * @param string|null $url_window
      * @return self
      */
-    public function setUrlWindow(string $url_window): self {
+    public function setUrlWindow(string $url_window = null): self {
 
         $this->url_window = $url_window;
 
@@ -221,9 +226,9 @@ class Tab {
 
     /**
      * Получение url для окна браузера
-     * @return string
+     * @return string|null
      */
-    public function getUrlWindow(): string {
+    public function getUrlWindow():? string {
 
         return $this->url_window;
     }
@@ -258,18 +263,34 @@ class Tab {
      */
     public function toArray(): array {
 
-        return [
-            'id'        => $this->getId(),
-            'type'      => 'tab',
-            'title'     => $this->getTitle(),
-            'url'       => $this->getUrl(),
-            'count'     => $this->getCount(),
-            'badge'     => $this->getBadge(),
-            'urlCount'  => $this->getUrlCount(),
-            'urlBadge'  => $this->getUrlBadge(),
-            'urlWindow' => $this->getUrlWindow(),
-            'disabled'  => $this->disabled,
-            'active'    => $this->active,
+        $result = [
+            'id'       => $this->getId(),
+            'type'     => 'tab',
+            'title'    => $this->getTitle(),
+            'disabled' => $this->disabled,
+            'active'   => $this->active,
         ];
+
+
+        if ( ! is_null($url = $this->getUrl())) {
+            $result['url'] = $url;
+        }
+        if ( ! is_null($count = $this->getCount())) {
+            $result['count'] = $count;
+        }
+        if ( ! is_null($badge = $this->getBadge())) {
+            $result['badge'] = $badge;
+        }
+        if ( ! is_null($url_count = $this->getUrlCount())) {
+            $result['urlCount'] = $url_count;
+        }
+        if ( ! is_null($url_badge = $this->getUrlBadge())) {
+            $result['urlBadge'] = $url_badge;
+        }
+        if ( ! is_null($url_window = $this->getUrlWindow())) {
+            $result['urlWindow'] = $url_window;
+        }
+
+        return $result;
     }
 }
