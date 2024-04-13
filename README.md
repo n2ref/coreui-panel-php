@@ -2,7 +2,7 @@
 
 ### Composer install
 
-`composer install n2ref/coreui-panel-php`
+`composer install n2ref/coreui-panel`
 
 ### Example usage
 
@@ -51,7 +51,7 @@ Output
       "fill": "justify",
       "width": 200,
       "items": [
-        {"id": "tab1", "title": "Home", "active": false, "url": "data/tab1.json"},
+        {"id": "tab1", "title": "Home", "url": "data/tab1.json"},
         {"id": "tab2", "title": "Profile", "active": true, "url": "data/tab2.json"},
         {"id": "tab3", "title": "Disabled", "disabled": true},
         {
@@ -59,9 +59,9 @@ Output
           "type": "dropdown",
           "items": [
             {"id": "tab4", "title": "Tab title 3", "disabled": true},
-            {"id": "tab5", "title": "Tab title 4", "active": false, "url": "data/tab3.json"},
+            {"id": "tab5", "title": "Tab title 4", "url": "data/tab3.json"},
             {"type": "divider"},
-            {"id": "tab6","title": "Tab title 5", "active": false, "url": "data/tab4.json"}
+            {"id": "tab6","title": "Tab title 5", "url": "data/tab4.json"}
           ]
         }
       ]
