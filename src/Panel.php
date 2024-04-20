@@ -370,7 +370,7 @@ class Panel {
             $result['subtitle'] = $this->subtitle;
         }
         if ($controls) {
-            $result['subtitle'] = $controls;
+            $result['controls'] = $controls;
         }
         if ($this->content_fit) {
             $result['contentFit'] = $this->content_fit;
