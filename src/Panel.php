@@ -36,6 +36,11 @@ class Panel {
     const TABS_FILL         = 'fill';
     const TABS_FILL_JUSTIFY = 'justify';
 
+    const FIT      = 'fit';
+    const FIT_NONE = '';
+    const FIT_MIN = 'min';
+    const FIT_MAX = 'max';
+
     private $id            = '';
     private $title         = '';
     private $subtitle      = '';
@@ -48,6 +53,7 @@ class Panel {
     private $content       = [];
     private $tab_index     = 1;
     private $control_index = 1;
+    private $content_fit   = '';
 
 
     /**
@@ -67,10 +73,26 @@ class Panel {
      * Установка заголовка
      * @param string      $title
      * @param string|null $subtitle
+     * @return Panel
      */
-    public function setTitle(string $title, string $subtitle = null): void {
+    public function setTitle(string $title, string $subtitle = null): self {
+
         $this->title    = $title;
         $this->subtitle = $subtitle;
+
+        return $this;
+    }
+
+
+    /**
+     * Установка правила для отображения панели относительно содержимого
+     * @param string|null $fit
+     * @return Panel
+     */
+    public function setContentFit(string $fit = null): self {
+
+        $this->content_fit = $fit;
+        return $this;
     }
 
 
@@ -334,20 +356,45 @@ class Panel {
             $controls[] = $control->toArray();
         }
 
-        return [
-            'component'    => 'coreui.panel',
-            'id'           => $this->id,
-            'title'        => $this->title,
-            'subtitle'     => $this->subtitle,
-            'controls'     => $controls,
-            'tabs'         => [
-                'type'     => $this->tabs_type,
-                'position' => $this->tabs_position,
-                'fill'     => $this->tabs_fill,
-                'width'    => $this->tabs_width,
-                'items'    => $tabs,
-            ],
-            'content' => $this->content,
+        $result = [
+            'component' => 'coreui.panel',
+            'id'        => $this->id,
+            'content'   => $this->content,
         ];
+
+
+        if ($this->title) {
+            $result['title'] = $this->title;
+        }
+        if ($this->subtitle) {
+            $result['subtitle'] = $this->subtitle;
+        }
+        if ($controls) {
+            $result['subtitle'] = $controls;
+        }
+        if ($this->content_fit) {
+            $result['contentFit'] = $this->content_fit;
+        }
+
+        if ($tabs) {
+            $result['tabs'] = [];
+
+            if ($this->tabs_type) {
+                $result['tabs']['type'] = $this->tabs_type;
+            }
+            if ($this->tabs_position) {
+                $result['tabs']['position'] = $this->tabs_position;
+            }
+            if ($this->tabs_fill) {
+                $result['tabs']['fill'] = $this->tabs_fill;
+            }
+            if ($this->tabs_width) {
+                $result['tabs']['width'] = $this->tabs_width;
+            }
+
+            $result['tabs']['items'] = $tabs;
+        }
+
+        return $result;
     }
 } 
