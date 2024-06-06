@@ -41,6 +41,9 @@ class Panel {
     const FIT_MIN = 'min';
     const FIT_MAX = 'max';
 
+    const WRAPPER_CARD = 'card';
+    const WRAPPER_NONE = 'none';
+
     private $id            = '';
     private $title         = '';
     private $subtitle      = '';
@@ -53,7 +56,8 @@ class Panel {
     private $content       = [];
     private $tab_index     = 1;
     private $control_index = 1;
-    private $content_fit   = '';
+    private $content_fit   = self::FIT_NONE;
+    private $wrapper_type  = self::WRAPPER_CARD;
 
 
     /**
@@ -93,6 +97,28 @@ class Panel {
 
         $this->content_fit = $fit;
         return $this;
+    }
+
+
+    /**
+     * Установка правила для отображения обертки в панели
+     * @param string|null $type
+     * @return Panel
+     */
+    public function setWrapperType(string $type = null): self {
+
+        $this->wrapper_type = $type;
+        return $this;
+    }
+
+
+    /**
+     * Получение правила для отображения обертки в панели
+     * @return string
+     */
+    public function getWrapperType(): string {
+
+        return $this->wrapper_type;
     }
 
 
@@ -374,6 +400,9 @@ class Panel {
         }
         if ($this->content_fit) {
             $result['contentFit'] = $this->content_fit;
+        }
+        if ($this->wrapper_type) {
+            $result['wrapperType'] = $this->wrapper_type;
         }
 
         if ($tabs) {
