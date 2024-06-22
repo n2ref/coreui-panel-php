@@ -1,9 +1,5 @@
 <?php
-namespace CoreUI\Panel\Components;
-
-
-use CoreUI\Panel\Components\Dropdown\Button;
-use CoreUI\Panel\Components\Dropdown\Link;
+namespace CoreUI\Panel\Control\ButtonGroup;
 
 /**
  *
@@ -107,7 +103,7 @@ class Dropdown {
      * @param string      $content
      * @param string      $link
      * @param string|null $id
-     * @return Link
+     * @return Dropdown\Link
      */
     public function addItemLink(string $content, string $link, string $id = null): Dropdown\Link {
 
@@ -130,7 +126,7 @@ class Dropdown {
      * Добавление кнопки
      * @param string      $content
      * @param string|null $id
-     * @return Button
+     * @return Dropdown\Button
      */
     public function addItemButton(string $content, string $id = null): Dropdown\Button {
 

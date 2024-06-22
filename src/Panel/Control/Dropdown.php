@@ -1,10 +1,14 @@
 <?php
-namespace CoreUI\Panel\Components\ButtonGroup;
+namespace CoreUI\Panel\Control;
+use CoreUI\Panel\Abstract;
+use CoreUI\Panel\Control\Dropdown\Button;
+use CoreUI\Panel\Control\Dropdown\Link;
+
 
 /**
  *
  */
-class Dropdown {
+class Dropdown extends Abstract\Control {
 
     const POSITION_START = 'start';
     const POSITION_END   = 'end';
@@ -25,11 +29,7 @@ class Dropdown {
      */
     public function __construct(string $id = null) {
 
-        if ($id) {
-            $this->id = $id;
-        } else {
-            $this->id = crc32(uniqid());
-        }
+        $this->setId($id ?: crc32(uniqid()));
     }
 
 
@@ -103,7 +103,7 @@ class Dropdown {
      * @param string      $content
      * @param string      $link
      * @param string|null $id
-     * @return Dropdown\Link
+     * @return Link
      */
     public function addItemLink(string $content, string $link, string $id = null): Dropdown\Link {
 
@@ -126,7 +126,7 @@ class Dropdown {
      * Добавление кнопки
      * @param string      $content
      * @param string|null $id
-     * @return Dropdown\Button
+     * @return Button
      */
     public function addItemButton(string $content, string $id = null): Dropdown\Button {
 

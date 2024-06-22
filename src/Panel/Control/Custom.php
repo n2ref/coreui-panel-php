@@ -1,14 +1,15 @@
 <?php
-namespace CoreUI\Panel\Components\ButtonGroup;
+namespace CoreUI\Panel\Control;
+use CoreUI\Panel\Abstract;
+
 
 /**
  *
  */
-class Link {
+class Custom extends Abstract\Control {
 
-    private $id      = '';
-    private $content = '';
-    private $link    = '';
+    private string $id      = '';
+    private string $content = '';
 
 
     /**
@@ -16,23 +17,17 @@ class Link {
      */
     public function __construct(string $id = null) {
 
-        if ($id) {
-            $this->id = $id;
-        } else {
-            $this->id = crc32(uniqid());
-        }
+        $this->setId($id ?: crc32(uniqid()));
     }
 
 
     /**
      * Установка ID контрола
      * @param string $id
-     * @return self
+     * @return void
      */
-    public function setId(string $id): self {
+    public function setId(string $id): void {
         $this->id = $id;
-
-        return $this;
     }
 
 
@@ -68,37 +63,14 @@ class Link {
 
 
     /**
-     * Установка ссылки
-     * @param string $link
-     * @return self
-     */
-    public function setLink(string $link): self {
-
-        $this->link = $link;
-
-        return $this;
-    }
-
-
-    /**
-     * Получение ссылки
-     * @return string
-     */
-    public function getLink(): string {
-        return $this->link;
-    }
-
-
-    /**
      * @return array
      */
     public function toArray(): array {
 
         return [
             'id'      => $this->getId(),
-            'type'    => 'link',
+            'type'    => 'custom',
             'content' => $this->getContent(),
-            'link'    => $this->getLink(),
         ];
     }
 }

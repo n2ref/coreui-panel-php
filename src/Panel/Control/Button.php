@@ -1,29 +1,28 @@
 <?php
-namespace CoreUI\Panel\Components;
-
+namespace CoreUI\Panel\Control;
+use CoreUI\Panel\Abstract;
 
 /**
  *
  */
-class Link {
+class Button extends Abstract\Control {
 
-    private $id       = '';
-    private $href     = '';
-    private $content  = '';
-    private $onclick  = '';
-    private $attr     = [];
+    private string $id       = '';
+    private string $content  = '';
+    private string $onclick  = '';
+    private array  $attr     = [
+        'class' => "btn btn-outline-secondary"
+    ];
 
 
     /**
+     * @param string      $content
      * @param string|null $id
      */
-    public function __construct(string $id = null) {
+    public function __construct(string $content, string $id = null) {
 
-        if ($id) {
-            $this->id = $id;
-        } else {
-            $this->id = crc32(uniqid());
-        }
+        $this->setContent($content);
+        $this->setId($id ?: crc32(uniqid()));
     }
 
 
@@ -46,28 +45,6 @@ class Link {
      */
     public function getContent(): string {
         return $this->content;
-    }
-
-
-    /**
-     * Установка url адреса
-     * @param string $href
-     * @return self
-     */
-    public function setHref(string $href): self {
-
-        $this->href = $href;
-
-        return $this;
-    }
-
-
-    /**
-     * Получение url адреса
-     * @return string
-     */
-    public function getHref(): string {
-        return $this->href;
     }
 
 
@@ -96,10 +73,12 @@ class Link {
     /**
      * Установка ID контрола
      * @param string $id
-     * @return void
+     * @return self
      */
-    public function setId(string $id): void {
+    public function setId(string $id): self {
         $this->id = $id;
+
+        return $this;
     }
 
 
@@ -116,32 +95,37 @@ class Link {
      * Установка атрибута
      * @param string $name
      * @param string $value
-     * @return void
+     * @return self
      */
-    public function setAttr(string $name, string $value): void {
+    public function setAttr(string $name, string $value): self {
 
         if (is_scalar($value)) {
             $this->attr[$name] = $value;
         }
+
+        return $this;
     }
 
 
     /**
      * Установка атрибутов
      * @param array $attr
-     * @return void
+     * @return self
      */
-    public function setAttributes(array $attr): void {
+    public function setAttributes(array $attr): self {
 
         foreach ($attr as $name => $value) {
             $this->setAttr($name, $value);
         }
+
+        return $this;
     }
 
 
     /**
      * Получение значения атрибута
-     * @return string
+     * @param string $name
+     * @return string|null
      */
     public function getAttr(string $name):? string {
         return $this->attr[$name] ?? null;
@@ -157,7 +141,6 @@ class Link {
             'id'      => $this->getId(),
             'type'    => 'button',
             'content' => $this->getContent(),
-            'href'    => $this->getHref(),
             'onClick' => $this->getOnClick(),
             'attr'    => $this->attr,
         ];

@@ -1,18 +1,19 @@
 <?php
-namespace CoreUI\Panel\Components;
+namespace CoreUI\Panel\Control;
+use CoreUI\Panel\Abstract;
 
 
 /**
  *
  */
-class ButtonGroup {
+class ButtonGroup extends Abstract\Control {
 
-    private $id      = '';
-    private $buttons = [];
-    private $attr    = [
+    private string $id      = '';
+    private array  $buttons = [];
+    private array  $attr      = [
         'class' => "btn-group"
     ];
-    private $btn_index = 1;
+    private int   $btn_index = 1;
 
 
 
@@ -21,11 +22,7 @@ class ButtonGroup {
      */
     public function __construct(string $id = null) {
 
-        if ($id) {
-            $this->id = $id;
-        } else {
-            $this->id = crc32(uniqid());
-        }
+        $this->setId($id ?: crc32(uniqid()));
     }
 
 

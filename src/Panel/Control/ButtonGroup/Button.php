@@ -1,5 +1,5 @@
 <?php
-namespace CoreUI\Panel\Components\ButtonGroup;
+namespace CoreUI\Panel\Control\ButtonGroup;
 
 /**
  *

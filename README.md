@@ -7,16 +7,21 @@
 ### Example usage
 
 ```php
+    use CoreUI\Panel\Control;
+
     $panel = new \CoreUI\Panel('panel-id');
     $panel->setTitle('Component Panel', 'CoreUI Framework');
-    $panel->addControlButton('Help');
     
+    $panel->setControls([
+        (new Control\Button('Help'))    
+    ]);
+    
+
     $panel->setTabsType($panel::TABS_TYPE_TABS);
     $panel->setTabsPosition($panel::TABS_POS_TOP_LEFT);
     $panel->setTabsFill($panel::TABS_FILL_JUSTIFY);
     $panel->setTabsWidth(200);
-    
-    
+        
     $panel->addTab('Home',    'tab1', 'data/tab1.json')->setActive(true);
     $panel->addTab('Profile', 'tab2', 'data/tab2.json');
     $panel->addTab('Disabled')->setDisabled(true);

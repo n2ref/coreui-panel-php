@@ -1,20 +1,6 @@
 <?php
 namespace CoreUI;
-use CoreUI\Panel\Components\Button;
-use CoreUI\Panel\Components\Link;
-use CoreUI\Panel\Components\Custom;
-use CoreUI\Panel\Components\Dropdown;
-use CoreUI\Panel\Components\ButtonGroup;
 use CoreUI\Panel\Tabs;
-
-
-require_once 'Panel/Components/Button.php';
-require_once 'Panel/Components/Link.php';
-require_once 'Panel/Components/Custom.php';
-require_once 'Panel/Components/Dropdown.php';
-require_once 'Panel/Components/ButtonGroup.php';
-require_once 'Panel/Tabs/Dropdown.php';
-require_once 'Panel/Tabs/Tab.php';
 
 
 /**
@@ -44,20 +30,19 @@ class Panel {
     const WRAPPER_CARD = 'card';
     const WRAPPER_NONE = 'none';
 
-    private $id            = '';
-    private $title         = '';
-    private $subtitle      = '';
-    private $tabs_type     = self::TABS_TYPE_TABS;
-    private $tabs_position = self::TABS_POS_TOP_LEFT;
-    private $tabs_fill     = self::TABS_FILL_NONE;
-    private $tabs_width    = 200;
-    private $controls      = [];
-    private $tabs          = [];
-    private $content       = [];
-    private $tab_index     = 1;
-    private $control_index = 1;
-    private $content_fit   = self::FIT_NONE;
-    private $wrapper_type  = self::WRAPPER_CARD;
+    private string $id            = '';
+    private string $title         = '';
+    private string $subtitle      = '';
+    private string $tabs_type     = self::TABS_TYPE_TABS;
+    private string $tabs_position = self::TABS_POS_TOP_LEFT;
+    private string $tabs_fill     = self::TABS_FILL_NONE;
+    private int    $tabs_width    = 200;
+    private array  $controls      = [];
+    private array  $tabs          = [];
+    private array  $content       = [];
+    private int    $tab_index     = 1;
+    private string $content_fit   = self::FIT_NONE;
+    private string $wrapper_type  = self::WRAPPER_CARD;
 
 
     /**
@@ -65,11 +50,7 @@ class Panel {
      */
     public function __construct(string $panel_id = null) {
 
-        if ($panel_id) {
-            $this->id = $panel_id;
-        } else {
-            $this->id = crc32(uniqid());
-        }
+        $this->id = $panel_id ?: crc32(uniqid());
     }
 
 
@@ -123,110 +104,21 @@ class Panel {
 
 
     /**
-     * Добавления кнопки
-     * @param string      $content
-     * @param string|null $id
-     * @return Button
+     * Установка элементов управления
+     * @param array $controls
+     * @return self
      */
-    public function addControlButton(string $content, string $id = null): Button {
+    public function setControls(array $controls): self {
 
-        if (empty($id)) {
-            $id = "control{$this->control_index}";
+        $this->controls = [];
+
+        foreach ($controls as $control) {
+            if ($control instanceof Panel\Abstract\Control) {
+                $this->controls[] = $control;
+            }
         }
 
-        $control = new Button($id);
-        $control->setContent($content);
-
-        $this->controls[] = $control;
-        $this->control_index++;
-
-        return $control;
-    }
-
-
-    /**
-     * Добавления кнопки
-     * @param string      $content
-     * @param string|null $id
-     * @return Link
-     */
-    public function addControlLink(string $content, string $id = null): Link {
-
-        if (empty($id)) {
-            $id = "control{$this->control_index}";
-        }
-
-        $control = new Link($id);
-        $control->setContent($content);
-
-        $this->controls[] = $control;
-        $this->control_index++;
-
-        return $control;
-    }
-
-
-    /**
-     * Добавления кнопки
-     * @param string      $content
-     * @param string|null $id
-     * @return Custom
-     */
-    public function addControlCustom(string $content, string $id = null): Custom {
-
-        if (empty($id)) {
-            $id = "control{$this->control_index}";
-        }
-
-        $control = new Custom($id);
-        $control->setContent($content);
-
-        $this->controls[] = $control;
-        $this->control_index++;
-
-        return $control;
-    }
-
-
-    /**
-     * Добавления кнопки
-     * @param string      $content
-     * @param string|null $id
-     * @return Dropdown
-     */
-    public function addControlDropdown(string $content, string $id = null): Dropdown {
-
-        if (empty($id)) {
-            $id = "control{$this->control_index}";
-        }
-
-        $control = new Dropdown($id);
-        $control->setContent($content);
-
-        $this->controls[] = $control;
-        $this->control_index++;
-
-        return $control;
-    }
-
-
-    /**
-     * Добавления кнопки
-     * @param string|null $id
-     * @return ButtonGroup
-     */
-    public function addControlButtonGroup(string $id = null): ButtonGroup {
-
-        if (empty($id)) {
-            $id = "control{$this->control_index}";
-        }
-
-        $control = new ButtonGroup($id);
-
-        $this->controls[] = $control;
-        $this->control_index++;
-
-        return $control;
+        return $this;
     }
 
 

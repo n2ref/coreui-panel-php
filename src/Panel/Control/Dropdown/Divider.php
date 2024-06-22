@@ -1,5 +1,5 @@
 <?php
-namespace CoreUI\Panel\Components\ButtonGroup\Dropdown;
+namespace CoreUI\Panel\Control\Dropdown;
 
 
 /**

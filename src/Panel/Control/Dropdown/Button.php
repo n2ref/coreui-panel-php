@@ -1,15 +1,15 @@
 <?php
-namespace CoreUI\Panel\Components\ButtonGroup\Dropdown;
+namespace CoreUI\Panel\Control\Dropdown;
 
 
 /**
- *
+ * 
  */
-class Link {
+class Button {
 
     private $id      = '';
     private $content = '';
-    private $link    = '';
+    private $onclick = '';
 
 
     /**
@@ -28,10 +28,13 @@ class Link {
     /**
      * Установка ID контрола
      * @param string $id
-     * @return void
+     * @return self
      */
-    public function setId(string $id): void {
+    public function setId(string $id): self {
+
         $this->id = $id;
+
+        return $this;
     }
 
 
@@ -67,24 +70,24 @@ class Link {
 
 
     /**
-     * Установка ссылки
-     * @param string $link
+     * Установка js функции выполняющейся при клике
+     * @param string $onclick
      * @return self
      */
-    public function setLink(string $link): self {
+    public function setOnClick(string $onclick): self {
 
-        $this->link = $link;
+        $this->onclick = $onclick;
 
         return $this;
     }
 
 
     /**
-     * Получение ссылки
+     * Получение js функции выполняющейся при клике
      * @return string
      */
-    public function getLink(): string {
-        return $this->link;
+    public function getOnClick(): string {
+        return $this->onclick;
     }
 
 
@@ -95,9 +98,9 @@ class Link {
 
         return [
             'id'      => $this->getId(),
-            'type'    => 'link',
+            'type'    => 'button',
             'content' => $this->getContent(),
-            'link'    => $this->getLink(),
+            'onClick' => $this->getOnClick(),
         ];
     }
 }

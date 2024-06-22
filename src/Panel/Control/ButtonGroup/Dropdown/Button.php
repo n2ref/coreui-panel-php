@@ -1,14 +1,15 @@
 <?php
-namespace CoreUI\Panel\Components;
+namespace CoreUI\Panel\Control\ButtonGroup\Dropdown;
 
 
 /**
- *
+ * 
  */
-class Custom {
+class Button {
 
     private $id      = '';
     private $content = '';
+    private $onclick = '';
 
 
     /**
@@ -27,10 +28,13 @@ class Custom {
     /**
      * Установка ID контрола
      * @param string $id
-     * @return void
+     * @return self
      */
-    public function setId(string $id): void {
+    public function setId(string $id): self {
+
         $this->id = $id;
+
+        return $this;
     }
 
 
@@ -66,14 +70,37 @@ class Custom {
 
 
     /**
+     * Установка js функции выполняющейся при клике
+     * @param string $onclick
+     * @return self
+     */
+    public function setOnClick(string $onclick): self {
+
+        $this->onclick = $onclick;
+
+        return $this;
+    }
+
+
+    /**
+     * Получение js функции выполняющейся при клике
+     * @return string
+     */
+    public function getOnClick(): string {
+        return $this->onclick;
+    }
+
+
+    /**
      * @return array
      */
     public function toArray(): array {
 
         return [
             'id'      => $this->getId(),
-            'type'    => 'custom',
+            'type'    => 'button',
             'content' => $this->getContent(),
+            'onClick' => $this->getOnClick(),
         ];
     }
 }
