@@ -121,6 +121,17 @@ class Panel {
 
 
     /**
+     * Очистка установленных элементов управления
+     * @return $this
+     */
+    public function clearControls(): self {
+
+        $this->controls[] = [];
+        return $this;
+    }
+
+
+    /**
      * @param string $tabs_type
      * @return void
      */
