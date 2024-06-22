@@ -30,19 +30,19 @@ class Panel {
     const WRAPPER_CARD = 'card';
     const WRAPPER_NONE = 'none';
 
-    private string $id            = '';
-    private string $title         = '';
-    private string $subtitle      = '';
-    private string $tabs_type     = self::TABS_TYPE_TABS;
-    private string $tabs_position = self::TABS_POS_TOP_LEFT;
-    private string $tabs_fill     = self::TABS_FILL_NONE;
-    private int    $tabs_width    = 200;
-    private array  $controls      = [];
-    private array  $tabs          = [];
-    private array  $content       = [];
-    private int    $tab_index     = 1;
-    private string $content_fit   = self::FIT_NONE;
-    private string $wrapper_type  = self::WRAPPER_CARD;
+    private string  $id            = '';
+    private string  $title         = '';
+    private ?string $subtitle      = '';
+    private string  $tabs_type     = self::TABS_TYPE_TABS;
+    private string  $tabs_position = self::TABS_POS_TOP_LEFT;
+    private string  $tabs_fill     = self::TABS_FILL_NONE;
+    private int     $tabs_width    = 200;
+    private array   $controls      = [];
+    private array   $tabs          = [];
+    private array   $content       = [];
+    private int     $tab_index     = 1;
+    private ?string $content_fit   = self::FIT_NONE;
+    private ?string $wrapper_type  = self::WRAPPER_CARD;
 
 
     /**
