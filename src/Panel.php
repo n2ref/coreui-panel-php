@@ -108,9 +108,7 @@ class Panel {
      * @param array $controls
      * @return self
      */
-    public function setControls(array $controls): self {
-
-        $this->controls = [];
+    public function addControls(array $controls): self {
 
         foreach ($controls as $control) {
             if ($control instanceof Panel\Abstract\Control) {

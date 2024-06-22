@@ -12,7 +12,7 @@
     $panel = new \CoreUI\Panel('panel-id');
     $panel->setTitle('Component Panel', 'CoreUI Framework');
     
-    $panel->setControls([
+    $panel->addControls([
         (new Control\Button('Help'))    
     ]);
     
