@@ -39,7 +39,7 @@ class Panel {
     private int     $tabs_width    = 200;
     private array   $controls      = [];
     private array   $tabs          = [];
-    private array   $content       = [];
+    private mixed   $content       = [];
     private int     $tab_index     = 1;
     private ?string $content_fit   = self::FIT_NONE;
     private ?string $wrapper_type  = self::WRAPPER_CARD;
