@@ -16,16 +16,17 @@ class Tab {
     const BADGE_TYPE_LIGHT     = 'light';
     const BADGE_TYPE_DARK      = 'dark';
 
-    private $id         = '';
-    private $title      = '';
-    private $url        = null;
-    private $url_count  = null;
-    private $url_badge  = null;
-    private $url_window = null;
-    private $count      = null;
-    private $badge      = null;
-    private $disabled   = false;
-    private $active     = false;
+    private $id          = '';
+    private $title       = '';
+    private $url         = null;
+    private $url_content = null;
+    private $url_count   = null;
+    private $url_badge   = null;
+    private $url_window  = null;
+    private $count       = null;
+    private $badge       = null;
+    private $disabled    = false;
+    private $active      = false;
 
 
     /**
@@ -166,6 +167,29 @@ class Tab {
 
 
     /**
+     * Установка url таба для загрузки содержимого
+     * @param string|null $url
+     * @return self
+     */
+    public function setUrlContent(string $url = null): self {
+
+        $this->url_content = $url;
+
+        return $this;
+    }
+
+
+    /**
+     * Получение url таба для загрузки содержимого
+     * @return string|null
+     */
+    public function getUrlContent():? string {
+
+        return $this->url_content;
+    }
+
+
+    /**
      * Установка url количества таба
      * @param string|null $url_count
      * @return self
@@ -280,6 +304,9 @@ class Tab {
         }
         if ( ! is_null($badge = $this->getBadge())) {
             $result['badge'] = $badge;
+        }
+        if ( ! is_null($url_content = $this->getUrlContent())) {
+            $result['urlContent'] = $url_content;
         }
         if ( ! is_null($url_count = $this->getUrlCount())) {
             $result['urlCount'] = $url_count;

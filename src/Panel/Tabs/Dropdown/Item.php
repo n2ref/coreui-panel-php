@@ -6,14 +6,15 @@ namespace CoreUI\Panel\Tabs\Dropdown;
  */
 class Item {
 
-    private $id         = '';
-    private $title      = '';
-    private $url        = null;
-    private $url_count  = null;
-    private $url_window = null;
-    private $count      = null;
-    private $disabled   = false;
-    private $active     = false;
+    private $id          = '';
+    private $title       = '';
+    private $url         = null;
+    private $url_content = null;
+    private $url_count   = null;
+    private $url_window  = null;
+    private $count       = null;
+    private $disabled    = false;
+    private $active      = false;
 
 
     /**
@@ -113,6 +114,29 @@ class Item {
 
 
     /**
+     * Установка url таба для загрузки содержимого
+     * @param string|null $url
+     * @return self
+     */
+    public function setUrlContent(string $url = null): self {
+
+        $this->url_content = $url;
+
+        return $this;
+    }
+
+
+    /**
+     * Получение url таба для загрузки содержимого
+     * @return string|null
+     */
+    public function getUrlContent():? string {
+
+        return $this->url_content;
+    }
+
+
+    /**
      * Установка url количества таба
      * @param string|null $url_count
      * @return self
@@ -198,6 +222,9 @@ class Item {
         }
         if ( ! is_null($count = $this->getCount())) {
             $result['count'] = $count;
+        }
+        if ( ! is_null($url_content = $this->getUrlContent())) {
+            $result['urlContent'] = $url_content;
         }
         if ( ! is_null($url_count = $this->getUrlCount())) {
             $result['urlCount'] = $url_count;
