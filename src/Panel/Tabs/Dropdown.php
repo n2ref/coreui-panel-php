@@ -1,19 +1,14 @@
 <?php
 namespace CoreUI\Panel\Tabs;
-
-require_once 'Dropdown/Item.php';
+use \CoreUI\Panel\Abstract;
 
 
 /**
  *
  */
-class Dropdown {
+class Dropdown extends Abstract\Tab {
 
-    protected $id       = '';
-    protected $title    = '';
-    protected $disabled = false;
-    protected $active   = false;
-    protected $items    = [];
+    protected array $items = [];
 
 
     /**
@@ -21,62 +16,7 @@ class Dropdown {
      */
     public function __construct(string $id = null) {
 
-        if ($id) {
-            $this->id = $id;
-        } else {
-            $this->id = crc32(uniqid());
-        }
-    }
-
-
-    /**
-     * @param string $title
-     * @return self
-     */
-    public function setTitle(string $title): self {
-
-        $this->title = $title;
-        return $this;
-    }
-
-
-    /**
-     * Получение названия таба
-     * @return string
-     */
-    public function getTitle(): string {
-        return $this->title;
-    }
-
-
-    /**
-     * Получение ID таба
-     * @return string
-     */
-    public function getId(): string {
-        return $this->id;
-    }
-
-
-    /**
-     * @param bool $is_disabled
-     * @return $this
-     */
-    public function setDisabled(bool $is_disabled): self {
-
-        $this->disabled = $is_disabled;
-        return $this;
-    }
-
-
-    /**
-     * @param bool $is_active
-     * @return self
-     */
-    public function setActive(bool $is_active): self {
-
-        $this->active = $is_active;
-        return $this;
+        $this->setId($id ?: (string)crc32(uniqid()));
     }
 
 
@@ -135,13 +75,24 @@ class Dropdown {
             }
         }
 
-        return [
-            'id'       => $this->id,
-            'type'     => 'dropdown',
-            'title'    => $this->title,
-            'disabled' => $this->disabled,
-            'active'   => $this->active,
-            'items'    => $items,
+
+        $result = [
+            'id'    => $this->getId(),
+            'type'  => 'dropdown',
+            'title' => $this->getTitle(),
+            'items' => $items,
         ];
+
+        if ($this->isActive()) {
+            $result['active'] = true;
+        }
+        if ($this->isDisabled()) {
+            $result['disabled'] = true;
+        }
+        if ( ! is_null($side = $this->getSide())) {
+            $result['side'] = $side;
+        }
+
+        return $result;
     }
 }

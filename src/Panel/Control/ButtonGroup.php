@@ -22,7 +22,7 @@ class ButtonGroup extends Abstract\Control {
      */
     public function __construct(string $id = null) {
 
-        $this->setId($id ?: crc32(uniqid()));
+        $this->setId($id ?: (string)crc32(uniqid()));
     }
 
 

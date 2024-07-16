@@ -1,11 +1,11 @@
 <?php
 namespace CoreUI\Panel\Tabs;
-
+use \CoreUI\Panel\Abstract;
 
 /**
  *
  */
-class Tab {
+class Tab extends Abstract\Tab {
 
     const BADGE_TYPE_DANGER    = 'danger';
     const BADGE_TYPE_PRIMARY   = 'primary';
@@ -16,17 +16,14 @@ class Tab {
     const BADGE_TYPE_LIGHT     = 'light';
     const BADGE_TYPE_DARK      = 'dark';
 
-    private $id          = '';
-    private $title       = '';
-    private $url         = null;
-    private $url_content = null;
-    private $url_count   = null;
-    private $url_badge   = null;
-    private $url_window  = null;
-    private $count       = null;
-    private $badge       = null;
-    private $disabled    = false;
-    private $active      = false;
+
+    private ?string $url         = null;
+    private ?string $url_content = null;
+    private ?string $url_count   = null;
+    private ?string $url_badge   = null;
+    private ?string $url_window  = null;
+    private ?string $count       = null;
+    private ?array  $badge       = null;
 
 
     /**
@@ -34,55 +31,7 @@ class Tab {
      */
     public function __construct(string $id = null) {
 
-        if ($id) {
-            $this->id = $id;
-        } else {
-            $this->id = crc32(uniqid());
-        }
-    }
-
-
-    /**
-     * Установка ID таба
-     * @param string $id
-     * @return self
-     */
-    public function setId(string $id): self {
-
-        $this->id = $id;
-
-        return $this;
-    }
-
-
-    /**
-     * Получение ID таба
-     * @return string
-     */
-    public function getId(): string {
-        return $this->id;
-    }
-
-
-    /**
-     * @param string $title
-     * @return self
-     */
-    public function setTitle(string $title): self {
-
-        $this->title = $title;
-
-        return $this;
-    }
-
-
-    /**
-     * Получение названия таба
-     * @return string
-     */
-    public function getTitle(): string {
-
-        return $this->title;
+        $this->setId($id ?: (string)crc32(uniqid()));
     }
 
 
@@ -128,6 +77,24 @@ class Tab {
                 'attr' => $attr,
             ];
         }
+
+        return $this;
+    }
+
+
+    /**
+     * Установка метки для таба в виде точки
+     * @param string $type
+     * @param array  $attr
+     * @return self
+     */
+    public function setBadgeDot(string $type = self::BADGE_TYPE_DANGER, array $attr = []): self {
+
+        $this->badge = [
+            'text' => '',
+            'type' => $type,
+            'attr' => $attr,
+        ];
 
         return $this;
     }
@@ -259,43 +226,23 @@ class Tab {
 
 
     /**
-     * @param bool $is_disabled
-     * @return $this
-     */
-    public function setDisabled(bool $is_disabled): self {
-
-        $this->disabled = $is_disabled;
-
-        return $this;
-    }
-
-
-    /**
-     * @param bool $is_active
-     * @return self
-     */
-    public function setActive(bool $is_active): self {
-
-        $this->active = $is_active;
-
-        return $this;
-    }
-
-
-    /**
      * @return array
      */
     public function toArray(): array {
 
         $result = [
-            'id'       => $this->getId(),
-            'type'     => 'tab',
-            'title'    => $this->getTitle(),
-            'disabled' => $this->disabled,
-            'active'   => $this->active,
+            'id'    => $this->getId(),
+            'type'  => 'tab',
+            'title' => $this->getTitle(),
         ];
 
 
+        if ($this->isActive()) {
+            $result['active'] = true;
+        }
+        if ($this->isDisabled()) {
+            $result['disabled'] = true;
+        }
         if ( ! is_null($url = $this->getUrl())) {
             $result['url'] = $url;
         }
@@ -316,6 +263,9 @@ class Tab {
         }
         if ( ! is_null($url_window = $this->getUrlWindow())) {
             $result['urlWindow'] = $url_window;
+        }
+        if ( ! is_null($side = $this->getSide())) {
+            $result['side'] = $side;
         }
 
         return $result;

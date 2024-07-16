@@ -7,9 +7,9 @@ namespace CoreUI\Panel\Control\ButtonGroup\Dropdown;
  */
 class Link {
 
-    private $id      = '';
-    private $content = '';
-    private $link    = '';
+    private string $id      = '';
+    private string $content = '';
+    private string $link    = '';
 
 
     /**
@@ -20,7 +20,7 @@ class Link {
         if ($id) {
             $this->id = $id;
         } else {
-            $this->id = crc32(uniqid());
+            $this->id = (string)crc32(uniqid());
         }
     }
 

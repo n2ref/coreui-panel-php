@@ -7,9 +7,9 @@ namespace CoreUI\Panel\Control\Dropdown;
  */
 class Link {
 
-    private $id      = '';
-    private $content = '';
-    private $link    = '';
+    private string $id      = '';
+    private string $content = '';
+    private string $link    = '';
 
 
     /**
@@ -17,11 +17,7 @@ class Link {
      */
     public function __construct(string $id = null) {
 
-        if ($id) {
-            $this->id = $id;
-        } else {
-            $this->id = crc32(uniqid());
-        }
+        $this->setId($id ?: (string)crc32(uniqid()));
     }
 
 

@@ -22,7 +22,7 @@ class Button extends Abstract\Control {
     public function __construct(string $content, string $id = null) {
 
         $this->setContent($content);
-        $this->setId($id ?: crc32(uniqid()));
+        $this->setId($id ?: (string)crc32(uniqid()));
     }
 
 

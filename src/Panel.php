@@ -1,6 +1,8 @@
 <?php
 namespace CoreUI;
 use CoreUI\Panel\Tabs;
+use CoreUI\Panel\Tabs\Dropdown;
+use CoreUI\Panel\Tabs\Tab;
 
 
 /**
@@ -18,12 +20,10 @@ class Panel {
     const TABS_POS_LEFT       = 'left';
     const TABS_POS_RIGHT      = 'right';
 
-    const TABS_FILL_NONE    = '';
     const TABS_FILL         = 'fill';
     const TABS_FILL_JUSTIFY = 'justify';
 
-    const FIT      = 'fit';
-    const FIT_NONE = '';
+    const FIT     = 'fit';
     const FIT_MIN = 'min';
     const FIT_MAX = 'max';
 
@@ -35,13 +35,13 @@ class Panel {
     private ?string $subtitle      = '';
     private string  $tabs_type     = self::TABS_TYPE_TABS;
     private string  $tabs_position = self::TABS_POS_TOP_LEFT;
-    private string  $tabs_fill     = self::TABS_FILL_NONE;
+    private ?string $tabs_fill     = null;
     private int     $tabs_width    = 200;
     private array   $controls      = [];
     private array   $tabs          = [];
     private mixed   $content       = [];
     private int     $tab_index     = 1;
-    private ?string $content_fit   = self::FIT_NONE;
+    private ?string $content_fit   = null;
     private ?string $wrapper_type  = self::WRAPPER_CARD;
 
 
@@ -50,7 +50,7 @@ class Panel {
      */
     public function __construct(string $panel_id = null) {
 
-        $this->id = $panel_id ?: crc32(uniqid());
+        $this->id = $panel_id ?: (string)crc32(uniqid());
     }
 
 
@@ -264,6 +264,73 @@ class Panel {
                 }
             }
         }
+    }
+
+
+    /**
+     * Получение идентификатора активного таба
+     * @return string|null
+     */
+    public function getActiveTabId():? string {
+
+        $active_tab = null;
+
+        foreach ($this->tabs as $tab) {
+            if ($tab instanceof Tabs\Dropdown) {
+                $items = $tab->getItems();
+
+                foreach ($items as $item) {
+                    if ($item instanceof Panel\Tabs\Dropdown\Item) {
+                        if ($item->isActive()) {
+                            $active_tab = $item->getId();
+                            break 2;
+                        }
+                    }
+                }
+
+            } elseif ($tab instanceof Tabs\Tab) {
+                if ($tab->isActive()) {
+                    $active_tab = $tab->getId();
+                    break;
+                }
+            }
+        }
+
+        return $active_tab;
+    }
+
+
+    /**
+     * Получение таба по его id
+     * @param string $tab_id
+     * @return Tab|Dropdown|null
+     */
+    public function getTabById(string $tab_id): Tabs\Tab|Tabs\Dropdown|null {
+
+        $result = null;
+
+        foreach ($this->tabs as $tab) {
+            if ($tab instanceof Tabs\Dropdown) {
+                $items = $tab->getItems();
+
+                foreach ($items as $item) {
+                    if ($item instanceof Panel\Tabs\Dropdown\Item) {
+                        if ($item->getId() == $tab_id) {
+                            $result = $tab;
+                            break 2;
+                        }
+                    }
+                }
+
+            } elseif ($tab instanceof Tabs\Tab) {
+                if ($tab->getId() == $tab_id) {
+                    $result = $tab;
+                    break;
+                }
+            }
+        }
+
+        return $result;
     }
 
 

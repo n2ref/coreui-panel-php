@@ -6,15 +6,15 @@ namespace CoreUI\Panel\Tabs\Dropdown;
  */
 class Item {
 
-    private $id          = '';
-    private $title       = '';
-    private $url         = null;
-    private $url_content = null;
-    private $url_count   = null;
-    private $url_window  = null;
-    private $count       = null;
-    private $disabled    = false;
-    private $active      = false;
+    private string  $id          = '';
+    private string  $title       = '';
+    private ?string $url         = null;
+    private ?string $url_content = null;
+    private ?string $url_count   = null;
+    private ?string $url_window  = null;
+    private ?string $count       = null;
+    private bool    $disabled    = false;
+    private bool    $active      = false;
 
 
     /**
@@ -25,7 +25,7 @@ class Item {
         if ($id) {
             $this->id = $id;
         } else {
-            $this->id = crc32(uniqid());
+            $this->id = (string)crc32(uniqid());
         }
     }
 
@@ -201,6 +201,15 @@ class Item {
 
         $this->active = $is_active;
         return $this;
+    }
+
+
+    /**
+     * Получение информации активен ли таб
+     * @return bool
+     */
+    public function isActive(): bool {
+        return $this->active;
     }
 
 

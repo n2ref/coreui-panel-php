@@ -7,9 +7,9 @@ namespace CoreUI\Panel\Control\ButtonGroup\Dropdown;
  */
 class Button {
 
-    private $id      = '';
-    private $content = '';
-    private $onclick = '';
+    private string $id      = '';
+    private string $content = '';
+    private string $onclick = '';
 
 
     /**
@@ -17,11 +17,7 @@ class Button {
      */
     public function __construct(string $id = null) {
 
-        if ($id) {
-            $this->id = $id;
-        } else {
-            $this->id = crc32(uniqid());
-        }
+        $this->setId($id ?: (string)crc32(uniqid()));
     }
 
 

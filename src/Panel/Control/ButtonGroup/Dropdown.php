@@ -10,14 +10,14 @@ class Dropdown {
     const POSITION_END   = 'end';
 
 
-    private $id       = '';
-    private $content  = '';
-    private $position = 'end';
-    private $items    = [];
-    private $attr     = [
+    private string $id       = '';
+    private string $content  = '';
+    private string $position = 'end';
+    private array $items      = [];
+    private array $attr       = [
         'class' => "btn btn-secondary"
     ];
-    private $item_index = 1;
+    private int   $item_index = 1;
 
 
     /**
@@ -25,11 +25,7 @@ class Dropdown {
      */
     public function __construct(string $id = null) {
 
-        if ($id) {
-            $this->id = $id;
-        } else {
-            $this->id = crc32(uniqid());
-        }
+        $this->setId($id ?: (string)crc32(uniqid()));
     }
 
 
