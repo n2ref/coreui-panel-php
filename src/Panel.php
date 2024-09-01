@@ -33,13 +33,14 @@ class Panel {
     private string  $id            = '';
     private string  $title         = '';
     private ?string $subtitle      = '';
+    private ?string $url_content   = null;
     private string  $tabs_type     = self::TABS_TYPE_TABS;
     private string  $tabs_position = self::TABS_POS_TOP_LEFT;
     private ?string $tabs_fill     = null;
     private int     $tabs_width    = 200;
     private array   $controls      = [];
     private array   $tabs          = [];
-    private mixed   $content       = [];
+    private mixed   $content       = null;
     private int     $tab_index     = 1;
     private ?string $content_fit   = null;
     private ?string $wrapper_type  = self::WRAPPER_CARD;
@@ -64,7 +65,6 @@ class Panel {
 
         $this->title    = $title;
         $this->subtitle = $subtitle;
-
         return $this;
     }
 
@@ -122,7 +122,7 @@ class Panel {
 
     /**
      * Очистка установленных элементов управления
-     * @return $this
+     * @return self
      */
     public function clearControls(): self {
 
@@ -132,41 +132,50 @@ class Panel {
 
 
     /**
+     * Установка типа табов
      * @param string $tabs_type
-     * @return void
+     * @return self
      */
-    public function setTabsType(string $tabs_type): void {
+    public function setTabsType(string $tabs_type): self {
 
         $this->tabs_type = $tabs_type;
+        return $this;
     }
 
+
     /**
+     * Установка позиции табов
      * @param string $tabs_position
-     * @return void
+     * @return self
      */
-    public function setTabsPosition(string $tabs_position): void {
+    public function setTabsPosition(string $tabs_position): self {
 
         $this->tabs_position = $tabs_position;
+        return $this;
     }
 
 
     /**
+     * Установка выравнивания табов
      * @param string $tabs_fill
-     * @return void
+     * @return self
      */
-    public function setTabsFill(string $tabs_fill): void {
+    public function setTabsFill(string $tabs_fill): self {
 
         $this->tabs_fill = $tabs_fill;
+        return $this;
     }
 
 
     /**
+     * Установка ширины табов
      * @param int $tabs_width
-     * @return void
+     * @return self
      */
-    public function setTabsWidth(int $tabs_width): void {
+    public function setTabsWidth(int $tabs_width): self {
 
         $this->tabs_width = $tabs_width;
+        return $this;
     }
 
 
@@ -220,25 +229,60 @@ class Panel {
 
 
     /**
+     * Установка адреса для загрузки содержимого
+     * @param string $url
+     * @return self
+     */
+    public function setUrlContent(string $url): self {
+
+        $this->url_content = $url;
+        return $this;
+    }
+
+
+    /**
      * Установка содержимого для контейнера
      * @param mixed $content
+     * @return self
      * @throws \Exception
      */
-    public function setContent(mixed $content): void {
+    public function setContent(mixed $content): self {
 
         if ( ! is_scalar($content) && ! is_array($content)) {
             throw new \Exception('Содержимое может быть в виде строки или массива');
         }
 
         $this->content = $content;
+        return $this;
     }
 
 
     /**
-     * @param string $tab_id
-     * @return void
+     * Получение содержимого для контейнера
+     * @return mixed
      */
-    public function setActiveTab(string $tab_id): void {
+    public function getContent(): mixed {
+
+        return $this->content;
+    }
+
+
+    /**
+     * Получение адреса для загрузки содержимого
+     * @return string|null
+     */
+    public function getUrlContent():? string {
+
+        return $this->url_content;
+    }
+
+
+    /**
+     * Установка активного таба
+     * @param string $tab_id
+     * @return self
+     */
+    public function setActiveTab(string $tab_id): self {
 
         if ( ! empty($this->tabs)) {
             foreach ($this->tabs as $tab) {
@@ -264,6 +308,8 @@ class Panel {
                 }
             }
         }
+
+        return $this;
     }
 
 
@@ -353,10 +399,15 @@ class Panel {
         $result = [
             'component' => 'coreui.panel',
             'id'        => $this->id,
-            'content'   => $this->content,
         ];
 
 
+        if ( ! is_null($this->content)) {
+            $result['content'] = $this->content;
+        }
+        if ( ! is_null($this->url_content)) {
+            $result['contentUrl'] = $this->url_content;
+        }
         if ($this->title) {
             $result['title'] = $this->title;
         }
